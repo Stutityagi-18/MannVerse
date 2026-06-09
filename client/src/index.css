@@ -1,0 +1,63 @@
+.dashboard {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  gap: 24px;
+  padding: 30px;
+}
+
+.left-panel,
+.right-panel {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.journal-editor textarea {
+  width: 100%;
+  min-height: 450px;
+
+  background: #111;
+  color: white;
+
+  border: none;
+  border-radius: 14px;
+
+  padding: 20px;
+  margin-top: 15px;
+
+  resize: none;
+  outline: none;
+
+  font-size: 16px;
+}
+
+.mood-value {
+  font-size: 28px;
+  font-weight: bold;
+  margin: 10px 0;
+}
+
+.tag-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.tag {
+  background: #1a1a1a;
+  color: white;
+  border: none;
+  padding: 10px 16px;
+  border-radius: 999px;
+  cursor: pointer;
+}
+.active-tag {
+  background: #7c3aed;
+}
+
+.save-btn {
+  width: 100%;
+  padding: 15px;
+  font-size: 16px;
+  font-weight: 600;
+}
