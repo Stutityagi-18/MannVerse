@@ -1,6 +1,8 @@
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 function SelectedEntryCard({ selectedEntry }) {
   const navigate = useNavigate();
+  const [showStory, setShowStory] = useState(false);
   if (!selectedEntry) {
     return <div className="selected-entry">No entry selected</div>;
   }
@@ -61,12 +63,31 @@ function SelectedEntryCard({ selectedEntry }) {
         <span>{wordCount} words</span>
       </div>
 
-      <button
-        className="read-btn"
-        onClick={() => navigate(`/journal/${selectedEntry._id}`)}
-      >
+      <button className="read-btn" onClick={() => setShowStory(true)}>
         Read Full Entry
       </button>
+      {showStory && (
+        <div className="story-overlay" onClick={() => setShowStory(false)}>
+          <div className="story-modal" onClick={(e) => e.stopPropagation()}>
+            <div className="story-header">
+              <h2>Journal Entry</h2>
+
+              <button
+                className="close-story"
+                onClick={() => setShowStory(false)}
+              >
+                ×
+              </button>
+            </div>
+
+            <p className="story-date">
+              {new Date(selectedEntry.createdAt).toLocaleDateString()}
+            </p>
+
+            <div className="story-content">{selectedEntry.body}</div>
+          </div>
+        </div>
+      )}
     </div>
   );
 }

@@ -22,7 +22,6 @@ function CalendarGrid({ entries, setSelectedEntry }) {
     "November",
     "December",
   ];
-
   const totalDays = new Date(year, month + 1, 0).getDate();
 
   const days = Array.from({ length: totalDays }, (_, i) => i + 1);
@@ -65,14 +64,53 @@ function CalendarGrid({ entries, setSelectedEntry }) {
             month === today.getMonth() &&
             year === today.getFullYear();
 
+          const entryForDay = entries.find((entry) => {
+            const entryDate = new Date(entry.createdAt);
+
+            return (
+              entryDate.getDate() === day &&
+              entryDate.getMonth() === month &&
+              entryDate.getFullYear() === year
+            );
+          });
+
+          let moodClass = "";
+          let moodText = "";
+          if (entryForDay) {
+            const mood = entryForDay.moodScore;
+
+            if (mood <= 2) {
+              moodClass = "low";
+              moodText = "Low";
+            } else if (mood <= 4) {
+              moodClass = "moderate";
+              moodText = "Moderate";
+            } else if (mood <= 6) {
+              moodClass = "good";
+              moodText = "Good";
+            } else if (mood <= 8) {
+              moodClass = "great";
+              moodText = "Great";
+            } else {
+              moodClass = "excellent";
+              moodText = "Excellent";
+            }
+          }
+
           return (
             <div
               key={day}
               className={isToday ? "day-box active-day" : "day-box"}
+              onClick={() => entryForDay && setSelectedEntry(entryForDay)}
+              title={
+                entryForDay
+                  ? `${moodText} (${entryForDay.moodScore}/10)`
+                  : "No entry"
+              }
             >
               {day}
 
-              {day <= 9 && <span className={`mood-dot dot-${day}`} />}
+              {entryForDay && <span className={`mood-dot ${moodClass}`} />}
             </div>
           );
         })}
