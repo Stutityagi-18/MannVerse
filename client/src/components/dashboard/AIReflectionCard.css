@@ -1,0 +1,136 @@
+.reflection-card {
+  background: rgba(11, 16, 32, 0.9);
+
+  border: 1px solid rgba(255,255,255,.08);
+
+  border-radius: 28px;
+
+  padding: 32px;
+
+  backdrop-filter: blur(10px);
+
+  box-shadow:
+    0 0 0 1px rgba(255,255,255,.03),
+    0 20px 40px rgba(0,0,0,.35);
+
+  transition: all 0.3s ease;
+}
+.emotion-tags span:nth-child(1) {
+  background: rgba(59,130,246,.15);
+  color: #60a5fa;
+}
+
+.emotion-tags span:nth-child(2) {
+  background: rgba(139,92,246,.15);
+  color: #a78bfa;
+}
+.confidence-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  margin-bottom: 12px;
+
+  color: #7f8aa3;
+
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 1px;
+}
+.emotion-tags span:nth-child(3) {
+  background: rgba(16,185,129,.15);
+  color: #34d399;
+}
+.emotion-tags {
+  display: flex;
+  gap: 12px;
+  margin: 20px 0;
+}
+.reflection-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.live-badge {
+  background: rgba(0,255,170,.1);
+  color: #00d084;
+
+  padding: 6px 14px;
+  border-radius: 999px;
+  font-size: 13px;
+}
+.confidence-bar {
+  height: 6px;
+  background: #1c2238;
+  border-radius: 999px;
+  overflow: hidden;
+}
+
+.confidence-fill {
+  width: 87%;
+  height: 100%;
+
+  background: linear-gradient(
+    90deg,
+    #3478ff,
+    #8b5cf6
+  );
+}
+.emotion-tags span {
+  padding: 8px 16px;
+  border-radius: 999px;
+  font-size: 14px;
+}
+.reflection-card:hover {
+  transform: translateY(-4px);
+  border-color: rgba(158, 140, 255, 0.3);
+}
+.reflection-card h3 {
+  margin: 0;
+  font-size: 18px;
+  font-weight: 700;
+  color: #d7deef;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+.reflection-card p {
+  color: #c3c9d5;
+  line-height: 1.8;
+  font-size: 15px;
+}
+
+.emotion-box {
+  margin-top: 24px;
+
+  background: rgba(104, 71, 255, 0.08);
+
+  border: 1px solid rgba(138, 92, 246, 0.18);
+
+  border-radius: 28px;
+
+  padding: 18px 22px;
+}
+
+.emotion-box span {
+  color: #9e8cff;
+  font-size: 0.85rem;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  font-weight: 500;
+}
+.divider {
+  height: 1px;
+  background: rgba(255,255,255,.08);
+  margin: 24px 0;
+}
+.emotion-box h4 {
+  margin-top: 8px;
+
+  color: white;
+
+  font-size: 18px;
+  font-weight: 700;
+
+  -webkit-text-fill-color: white;
+}

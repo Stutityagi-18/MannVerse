@@ -1,0 +1,50 @@
+.settings-header{
+  display:flex;
+  flex-direction:column;
+
+  gap:10px;
+}
+
+.settings-tag{
+  color:#64748b;
+
+  font-size:15px;
+
+  position:relative;
+
+  padding-left:14px;
+}
+
+.settings-tag::before{
+  content:"";
+
+  position:absolute;
+
+  left:0;
+  top:0;
+
+  width:4px;
+  height:100%;
+
+  border-radius:999px;
+
+  background:#8b5cf6;
+}
+
+.settings-header h1{
+  margin:0;
+
+  color:white;
+
+  font-size:42px;
+  font-weight:700;
+
+  line-height:1;
+}
+
+
+.settings-header p{
+  font-size:17px;
+  color:#64748b;
+  margin-bottom:40px;
+}

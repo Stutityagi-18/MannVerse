@@ -3,21 +3,37 @@ import { useNavigate } from "react-router-dom";
 import API from "../../services/api";
 import "./auth.css";
 import meditationImg from "../../assets/meditation.jpg";
-
+import { FiUserPlus } from "react-icons/fi";
 const Register = () => {
   const navigate = useNavigate();
-
+  const [registerError, setRegisterError] = useState("");
   const [formData, setFormData] = useState({
     name: "",
     email: "",
     password: "",
     confirmPassword: "",
   });
+  const [showRegisterModal, setShowRegisterModal] = useState(false);
+  const [passwordError, setPasswordError] = useState("");
+  const [confirmError, setConfirmError] = useState("");
   const handleSubmit = async (e) => {
+    setRegisterError("");
     e.preventDefault();
 
+    setPasswordError("");
+    setConfirmError("");
+
+    const passwordRegex = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{6,10}$/;
+
+    if (!passwordRegex.test(formData.password)) {
+      setPasswordError(
+        "Password must be 6-10 characters long and contain at least one letter and one number.",
+      );
+      return;
+    }
+
     if (formData.password !== formData.confirmPassword) {
-      alert("Passwords do not match");
+      setConfirmError("Passwords do not match.");
       return;
     }
 
@@ -28,9 +44,13 @@ const Register = () => {
         password: formData.password,
       });
 
-      navigate("/login");
-    } catch {
-      alert("Registration Failed");
+      setShowRegisterModal(true);
+
+      setTimeout(() => {
+        navigate("/login");
+      }, 5000);
+    } catch (err) {
+      setRegisterError(err.response?.data?.message || "Registration Failed");
     }
   };
   return (
@@ -100,6 +120,9 @@ const Register = () => {
                   })
                 }
               />
+              {passwordError && (
+                <p className="error-message">{passwordError}</p>
+              )}
             </div>
 
             <div className="form-group">
@@ -116,17 +139,43 @@ const Register = () => {
                   })
                 }
               />
+              {confirmError && <p className="error-message">{confirmError}</p>}
             </div>
 
             <button type="submit" className="gradient-btn">
               Create Account →
             </button>
+            {registerError && <p className="error-message">{registerError}</p>}
             <p className="private-text">
               🔒 Your entries remain private and secure.
             </p>
           </form>
         </div>
       </div>
+      {showRegisterModal && (
+        <div className="login-overlay">
+          <div className="login-card">
+            <div className="login-icon">
+              <FiUserPlus />
+            </div>
+
+            <p className="login-label">WELCOME TO MANNVERSE</p>
+
+            <h1>Registration Successful</h1>
+
+            <p className="login-text">
+              Your account has been created successfully. You can now begin your
+              journaling journey
+            </p>
+
+            <div className="login-progress">
+              <div className="login-progress-fill register-progress"></div>
+            </div>
+
+            <p className="redirect-text">Redirecting to login page...</p>
+          </div>
+        </div>
+      )}
     </div>
   );
 };

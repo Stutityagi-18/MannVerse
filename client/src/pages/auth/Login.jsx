@@ -1,5 +1,6 @@
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { FiLogIn } from "react-icons/fi";
+import { useNavigate, useLocation } from "react-router-dom";
 import API from "../../services/api";
 import { useAuth } from "../../store/authStore";
 import "./auth.css";
@@ -12,18 +13,25 @@ const Login = () => {
     email: "",
     password: "",
   });
-
+  const [showLoginModal, setShowLoginModal] = useState(false);
+  const [error, setError] = useState("");
   const handleSubmit = async (e) => {
     e.preventDefault();
 
     try {
+      setError("");
+
       const res = await API.post("/auth/login", formData);
 
       login(res.data.user, res.data.token);
 
-      navigate("/");
+      setShowLoginModal(true);
+
+      setTimeout(() => {
+        navigate("/dashboard");
+      }, 2500);
     } catch (err) {
-      alert("Login Failed");
+      setError("Account not found. Please register yourself first.");
     }
   };
   return (
@@ -85,12 +93,35 @@ const Login = () => {
             <button type="submit" className="gradient-btn">
               Login to MannVerse →
             </button>
+            {error && <p className="error-message">{error}</p>}
             <p className="private-text">
               🔒 Your entries remain private and secure.
             </p>
           </form>
         </div>
       </div>
+      {showLoginModal && (
+        <div className="login-overlay">
+          <div className="login-card">
+            <div className="login-icon">
+              <FiLogIn />
+            </div>
+            <p className="login-label">WELCOME BACK </p>
+
+            <h1>Login Successful</h1>
+
+            <p className="login-text">
+              Glad to see you again. Preparing your journal space
+            </p>
+
+            <div className="login-progress">
+              <div className="login-progress-fill"></div>
+            </div>
+
+            <p className="redirect-text">Opening your dashboard...</p>
+          </div>
+        </div>
+      )}
     </div>
   );
 };

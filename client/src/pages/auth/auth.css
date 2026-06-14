@@ -65,32 +65,50 @@ body,
     0 0 40px rgba(139,92,246,.15),
     0 0 80px rgba(59,130,246,.12);
 }
-
 .auth-tabs{
   display:flex;
   background:#111827;
-  border-radius:16px;
-  padding:6px;
-  margin-bottom:30px;
-}
+  border-radius:20px;
 
+  padding:8px;      /* important */
+
+  margin-bottom:30px;
+
+  height:74px;      /* important */
+}
 .auth-tab{
   flex:1;
-  padding:14px;
+
+  height:100%;
+
   border:none;
-  background:none;
+  background:transparent;
+
   color:#94a3b8;
+
+  border-radius:14px;
+
   font-size:18px;
   font-weight:600;
+
   cursor:pointer;
-  border-radius:12px;
-}
 
+  transition:.3s ease;
+}
 .auth-tab.active{
-  background:linear-gradient(90deg,#8b5cf6,#3b82f6);
-  color:white;
-}
+  background:linear-gradient(
+    90deg,
+    #8b5cf6,
+    #3b82f6
+  );
 
+  color:white;
+
+  box-shadow:
+    0 0 20px rgba(139,92,246,.25);
+
+  height:100%;
+}
 .form-group{
   margin-bottom:18px;
 }
@@ -258,4 +276,141 @@ body,
   .meditation-img{
     width:220px;
   }
+}
+.login-overlay{
+  position:fixed;
+  inset:0;
+
+  background:rgba(0,0,0,.6);
+  backdrop-filter:blur(10px);
+
+  display:flex;
+  align-items:center;
+  justify-content:center;
+
+  z-index:99999;
+}
+
+.login-card{
+  width:520px;
+
+  background:#071225;
+  border:1px solid rgba(59,130,246,.35);
+
+  border-radius:32px;
+
+  padding:40px;
+  text-align:center;
+
+  box-shadow:
+    0 0 50px rgba(59,130,246,.2);
+}
+
+.login-icon{
+  width:90px;
+  height:90px;
+
+  margin:0 auto 20px;
+
+  display:flex;
+  align-items:center;
+  justify-content:center;
+
+  border-radius:24px;
+
+  font-size:42px;
+
+  color:#60a5fa;
+
+  background:rgba(59,130,246,.12);
+  border:1px solid rgba(59,130,246,.25);
+}
+
+.login-label{
+  color:#94a3b8;
+  letter-spacing:3px;
+  font-weight:700;
+}
+
+.login-card h1{
+  color:white;
+  font-size:42px;
+  margin-top:12px;
+}
+
+.login-text{
+  margin-top:14px;
+  color:#94a3b8;
+  line-height:1.7;
+}
+
+.login-progress{
+  width:100%;
+  height:6px;
+
+  margin-top:28px;
+
+  background:rgba(255,255,255,.08);
+  border-radius:999px;
+  overflow:hidden;
+}
+
+.login-progress-fill{
+  width:100%;
+  height:100%;
+
+  background:linear-gradient(
+    90deg,
+    #60a5fa,
+    #8b5cf6
+  );
+
+  animation:loginBar 2.5s linear forwards;
+}
+
+@keyframes loginBar{
+  from{
+    width:100%;
+  }
+  to{
+    width:0%;
+  }
+}
+
+.redirect-text{
+  margin-top:12px;
+  color:#7f8aa3;
+}
+.error-message{
+  margin-top:12px;
+  margin-bottom:8px;
+
+  color:#ef4444;
+
+  font-size:14px;
+  font-weight:500;
+
+  text-align:center;
+}
+.register-progress{
+  animation: registerBar 5s linear forwards;
+}
+
+@keyframes registerBar{
+  from{
+    width:100%;
+  }
+  to{
+    width:0%;
+  }
+}
+.error-message{
+  color:#ef4444;
+  font-size:13px;
+  margin-top:6px;
+
+  text-align:left;
+  margin-left:4px;
+
+  font-weight:500;
 }

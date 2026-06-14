@@ -1,0 +1,162 @@
+.grounding-header{
+  display:flex;
+  align-items:center;
+  gap:18px;
+  margin-bottom:28px;
+}
+
+.grounding-icon{
+  width:56px;
+  height:56px;
+
+  border-radius:50%;
+
+  background:rgba(139,92,246,.15);
+
+  color:#8b5cf6;
+
+  display:flex;
+  align-items:center;
+  justify-content:center;
+}
+
+.grounding-header h2{
+  color:white;
+  font-size:28px;
+  font-weight:800;
+
+  margin:0;
+}
+
+.grounding-header p{
+  color:#64748b;
+  margin-top:4px;
+}
+
+.grounding-intro{
+  color:#94a3b8;
+
+  font-size:16px;
+  line-height:1.4;
+
+  margin-bottom:20px;
+}
+
+.grounding-steps{
+  display:flex;
+  flex-direction:column;
+  gap:12px;
+}
+
+.grounding-step-card{
+  display:flex;
+  align-items:center;
+  gap:18px;
+
+  padding:18px 20px;
+
+  border-radius:24px;
+
+  border:1px solid transparent;
+}
+
+.grounding-number{
+  width:46px;
+  height:46px;
+
+  border-radius:50%;
+
+  display:flex;
+  align-items:center;
+  justify-content:center;
+
+  font-size:26px;
+  font-weight:700;
+
+  flex-shrink:0;
+}
+
+.grounding-content h4{
+  color:white;
+
+  font-size:16px;
+  line-height:1.4;
+
+  margin-top:4px;
+}
+
+.grounding-label{
+  font-size:13px;
+  font-weight:700;
+  letter-spacing:2px;
+}
+
+/* SEE */
+
+.see{
+  border-color:rgba(59,130,246,.18);
+  background:rgba(59,130,246,.05);
+}
+
+.grounding-number.see,
+.grounding-label.see{
+  color:#3b82f6;
+}
+
+/* TOUCH */
+
+.touch{
+  border-color:rgba(139,92,246,.18);
+  background:rgba(139,92,246,.05);
+}
+
+.grounding-number.touch,
+.grounding-label.touch{
+  color:#8b5cf6;
+}
+
+/* HEAR */
+
+.hear{
+  border-color:rgba(20,184,166,.18);
+  background:rgba(20,184,166,.05);
+}
+
+.grounding-number.hear,
+.grounding-label.hear{
+  color:#14b8a6;
+}
+
+/* SMELL */
+
+.smell{
+  border-color:rgba(245,158,11,.18);
+  background:rgba(245,158,11,.05);
+}
+
+.grounding-number.smell,
+.grounding-label.smell{
+  color:#f59e0b;
+}
+
+/* TASTE */
+
+.taste{
+  border-color:rgba(236,72,153,.18);
+  background:rgba(236,72,153,.05);
+}
+
+.grounding-number.taste,
+.grounding-label.taste{
+  color:#ec4899;
+}
+.grounding-page{
+  width:100%;
+  background:#091127;
+gap:10px;
+  border:1px solid rgba(255,255,255,.06);
+  border-radius:28px;
+min-height:690px;
+  padding:28px;
+
+}

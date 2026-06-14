@@ -1,12 +1,46 @@
-function EntryEditor({ value, onChange }) {
+import "./EntryEditor.css";
+import { FiSave } from "react-icons/fi";
+function EntryEditor() {
   return (
-    <div className="glass-card journal-editor">
-      <h2>Today's Journal</h2>
+    <div className="entry-editor">
+<div className="editor-toolbar">
 
+  <div className="toolbar-left">
+    <span>B</span>
+    <span>I</span>
+    <span>U</span>
+    <span>|</span>
+    <span>≡</span>
+    <span>#</span>
+  </div>
+
+  <div className="toolbar-right">
+    <span>0 words</span>
+    <span>1 min read</span>
+    <span>• Editing...</span>
+
+    <button className="journal-save-btn">
+  <FiSave />
+  Save
+</button>
+  </div>
+
+</div>
+      <p className="editor-date">Thursday, June 11, 2026</p>
+
+   <input
+  type="text"
+  className="editor-title"
+  placeholder="Untitled entry..."
+/>
+      <div className="editor-divider"></div>
+
+      <div className="reflection-box">
+<span className="reflection-icon">✦</span>
+What emotion has been quietly asking for your attention lately?      </div>
       <textarea
-        placeholder="How are you feeling today?"
-        value={value}
-        onChange={(e) => onChange(e.target.value)}
+        className="journal-textarea"
+        placeholder="Let your thoughts flow freely. This is your private space — honest, unfiltered, and safe."
       />
     </div>
   );

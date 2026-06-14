@@ -1,0 +1,88 @@
+.quick-access-card{
+  background:#081224;
+
+  border:1px solid rgba(255,255,255,.06);
+
+  border-radius:28px;
+
+  padding:28px;
+}
+
+.quick-header{
+  display:flex;
+  align-items:center;
+  gap:10px;
+
+  margin-bottom:22px;
+
+  color:#98a3bc;
+
+  font-size:14px;
+  font-weight:700;
+
+  letter-spacing:1px;
+}
+
+.quick-header svg{
+  color:#8b5cf6;
+  font-size:18px;
+}
+
+.quick-btn{
+  width:100%;
+
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+
+  padding:20px 18px;
+
+  margin-bottom:14px;
+
+  border-radius:999px;
+
+  border:1px solid rgba(255,255,255,.06);
+
+  background:linear-gradient(
+    90deg,
+    rgba(255,255,255,.03),
+    rgba(255,255,255,.02)
+  );
+
+  color:#9aa4bc;
+
+  font-size:15px;
+  font-weight:600;
+
+  cursor:pointer;
+
+  transition:.25s ease;
+}
+
+.quick-btn:hover{
+  transform:translateY(-2px);
+
+  border-color:rgba(139,92,246,.18);
+
+  background:linear-gradient(
+    90deg,
+    rgba(139,92,246,.08),
+    rgba(59,130,246,.04)
+  );
+}
+
+.quick-btn svg{
+  font-size:18px;
+}
+
+.purple{
+  color:#8b5cf6;
+}
+
+.blue{
+  color:#3b82f6;
+}
+
+.green{
+  color:#00d08a;
+}

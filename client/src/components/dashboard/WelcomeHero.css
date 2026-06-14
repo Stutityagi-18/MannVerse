@@ -1,0 +1,89 @@
+.welcome-hero{
+  display:flex;
+  justify-content:space-between;
+  align-items:flex-start;
+
+  margin-bottom:32px;
+  position:relative;
+}
+
+.hero-date{
+  color:#6b7280;
+  font-size:20px;
+  margin-bottom:14px;
+}
+
+.hero-title{
+  font-size:72px;
+  font-weight:800;
+  line-height:1.1;
+
+  color:white;
+  margin:0;
+}
+
+.hero-title span{
+  background:linear-gradient(
+    90deg,
+    #a855f7,
+    #60a5fa
+  );
+
+  -webkit-background-clip:text;
+  -webkit-text-fill-color:transparent;
+}
+
+.hero-quote{
+  color:#7c8aa5;
+  font-size:20px;
+  margin-top:18px;
+}
+
+.streak-badge{
+  width:230px;
+  height:95px;
+
+  border-radius:24px;
+
+  background:rgba(255,145,0,.08);
+
+  border:1px solid rgba(255,145,0,.18);
+
+  display:flex;
+  align-items:center;
+  gap:18px;
+
+  padding:20px;
+
+  box-shadow:
+  0 0 40px rgba(255,145,0,.12);
+}
+
+.streak-icon{
+  width:56px;
+  height:56px;
+
+  border-radius:50%;
+
+  display:flex;
+  justify-content:center;
+  align-items:center;
+
+  background:rgba(255,145,0,.12);
+
+  font-size:26px;
+}
+
+.streak-badge h2{
+  margin:0;
+  color:#f59e0b;
+  font-size:48px;
+  line-height:1;
+}
+
+.streak-badge p{
+  margin:0;
+  color:#b56b00;
+  font-size:14px;
+  letter-spacing:2px;
+}

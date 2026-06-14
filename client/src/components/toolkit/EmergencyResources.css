@@ -1,0 +1,77 @@
+.emergency-card {
+  margin-top: 16px;
+
+  background: rgba(45, 0, 0, 0.45);
+
+  border: 1px solid rgba(255, 80, 80, 0.18);
+
+  border-radius: 24px;
+
+  padding: 22px;
+  min-height: 300px;
+  overflow: hidden;
+}
+
+.emergency-header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+
+  color: #ff9d9d;
+
+  font-size: 14px;
+  font-weight: 700;
+
+  letter-spacing: 0.5px;
+
+  margin-bottom: 18px;
+}
+
+.helpline-link {
+  display: block;
+
+  text-decoration: none;
+
+  padding: 14px 0;
+
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+
+  transition: 0.25s;
+}
+
+.helpline-link:last-child {
+  border-bottom: none;
+}
+
+.helpline-link h4 {
+  margin: 0 0 4px 0;
+
+  color: #ffb1b1;
+
+  font-size: 15px;
+  font-weight: 700;
+}
+
+.helpline-link p {
+  margin: 0;
+
+  color: #7f8aa3;
+
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.helpline-link:hover {
+  padding-left: 6px;
+}
+
+.helpline-link:hover h4 {
+  color: #ffffff;
+}
+
+.emergency-card a,
+.emergency-card a:visited,
+.emergency-card a:link {
+  text-decoration: none;
+  color: inherit;
+}

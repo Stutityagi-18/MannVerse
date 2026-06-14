@@ -1,0 +1,159 @@
+.today-vibe-card{
+  background:#081224;
+
+  border:1px solid rgba(255,255,255,.06);
+
+  border-radius:28px;
+
+  padding:28px;
+
+  box-shadow:
+    0 0 30px rgba(0,255,170,.03);
+}
+
+.vibe-title{
+  color:#9aa4bc;
+
+  font-size:14px;
+  font-weight:700;
+
+  letter-spacing:1px;
+
+  margin-bottom:22px;
+}
+
+.vibe-score{
+  display:flex;
+  align-items:flex-end;
+  gap:10px;
+
+  margin-bottom:18px;
+}
+
+.score{
+  font-size:84px;
+  font-weight:800;
+  line-height:1;
+
+  color:#10d9a5;
+}
+
+.outof{
+  color:#4c5c82;
+  font-size:18px;
+
+  margin-bottom:12px;
+}
+
+.vibe-text{
+  color:#7c8aa7;
+
+  font-size:15px;
+  line-height:1.6;
+
+  margin-bottom:10px;
+}
+
+.sprout{
+  font-size:20px;
+
+  margin-bottom:24px;
+}
+
+.week-chart{
+  display:flex;
+  align-items:flex-end;
+  gap:8px;
+
+  height:46px;
+
+  margin-bottom:10px;
+}
+
+.bar{
+  flex:1;
+
+  background:rgba(255,255,255,.08);
+
+  border-radius:4px;
+
+  height:26px;
+}
+
+.tall{
+  height:38px;
+}
+
+.taller{
+  height:44px;
+}
+
+.week-chart .active{
+  background:linear-gradient(
+    180deg,
+    #13d9a7,
+    #3b82f6
+  );
+
+  box-shadow:
+    0 0 18px rgba(19,217,167,.25);
+}
+
+.week-labels{
+  display:flex;
+  justify-content:space-between;
+
+  color:#44516f;
+
+  font-size:12px;
+}
+
+.active-day{
+  background:none;
+  color:#10d9a5;
+  font-weight:700;
+}
+.vibe-title{
+  display:flex;
+  align-items:center;
+  gap:10px;
+}
+
+.vibe-star{
+  color:#facc15;
+  font-size:18px;
+
+  filter:
+    drop-shadow(0 0 10px rgba(250,204,21,.4));
+}
+
+.sprout{
+  color:#22c55e;
+  font-size:24px;
+
+  margin:20px 0;
+
+  filter:
+    drop-shadow(0 0 10px rgba(34,197,94,.4));
+}
+.week-labels{
+  display:flex;
+  justify-content:space-between;
+
+  color:#44516f;
+  font-size:12px;
+}
+
+.week-labels span,
+.week-labels div{
+  background:transparent !important;
+  border:none !important;
+  box-shadow:none !important;
+  outline:none !important;
+}
+
+.active-day{
+  color:#10d9a5 !important;
+  font-weight:700;
+  background:transparent !important;
+}

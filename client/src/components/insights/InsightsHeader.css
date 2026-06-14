@@ -1,0 +1,13 @@
+.insights-header p{
+  color:#64748b;
+  font-size:16px;
+}
+
+.insights-header h1{
+  font-size:48px;
+  font-weight:800;
+
+  color:white;
+
+  margin-top:4px;
+}

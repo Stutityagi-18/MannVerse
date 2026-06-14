@@ -1,41 +1,38 @@
-import { useState } from "react";
+import Sidebar from "../components/dashboard/Sidebar";
+import WelcomeHero from "../components/dashboard/WelcomeHero";
+import JournalCard from "../components/dashboard/JournalCard";
+import AIReflectionCard from "../components/dashboard/AIReflectionCard";
+import TodayVibeCard from "../components/dashboard/TodayVibeCard";
+import StatsCards from "../components/dashboard/StatsCards";
+import QuickAccessCard from "../components/dashboard/QuickAccessCard";
+import StreakModal from "../components/dashboard/StreakModal";
 
-import EntryEditor from "../components/journal/EntryEditor";
-import MoodSlider from "../components/journal/MoodSlider";
-import TagPicker from "../components/journal/TagPicker";
-import ReflectionCard from "../components/journal/ReflectionCard";
+import "./Home.css";
 
 function Home() {
-  const [journal, setJournal] = useState("");
-  const [mood, setMood] = useState(5);
-  const [selectedTags, setSelectedTags] = useState([]);
-
   return (
-    <div className="dashboard">
-      <div className="left-panel">
-        <EntryEditor
-          value={journal}
-          onChange={setJournal}
-        />
-      </div>
+    <div className="dashboard-layout">
+      <Sidebar />
+      <main className="dashboard-main">
 
-      <div className="right-panel">
-        <MoodSlider
-          mood={mood}
-          setMood={setMood}
-        />
+  <div className="hero-row">
+    <WelcomeHero />
+    <StreakModal />
+  </div>
 
-        <TagPicker
-          selectedTags={selectedTags}
-          setSelectedTags={setSelectedTags}
-        />
+  <div className="dashboard-content">
+          <div className="left-section">
+            <JournalCard />
+            <StatsCards />
+          </div>
 
-        <ReflectionCard />
-
-        <button className="save-btn">
-          Save Entry
-        </button>
-      </div>
+          <div className="right-section">
+            <AIReflectionCard />
+            <TodayVibeCard />
+            <QuickAccessCard />
+          </div>
+        </div>
+      </main>
     </div>
   );
 }
