@@ -9,12 +9,14 @@ const { protect } = require("./middleware/auth.middleware");
 const app = express();
 const entryRoutes = require("./routes/entry.routes");
 connectDB();
+const gratitudeRoutes = require("./routes/gratitude.routes");
 
 app.use(cors());
 app.use(express.json());
 app.use("/api/entries", entryRoutes);
 
 app.use("/api/auth", authRoutes);
+app.use("/api/gratitude", gratitudeRoutes);
 
 app.get("/", (req, res) => {
   res.send("MindJournal API Running ");

@@ -1,7 +1,7 @@
 import "./CalenderGrid.css";
 import { useState } from "react";
 const weekDays = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
-function CalendarGrid() {
+function CalendarGrid({ entries, setSelectedEntry }) {
   const [currentDate, setCurrentDate] = useState(new Date());
 
   const year = currentDate.getFullYear();

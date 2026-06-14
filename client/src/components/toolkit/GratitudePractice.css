@@ -235,3 +235,52 @@
   box-shadow:
     0 0 45px rgba(14,165,233,.45);
 }
+.gratitude-success{
+  margin-top:30px;
+
+  background:rgba(16,185,129,.08);
+
+  border:1px solid rgba(16,185,129,.25);
+
+  border-radius:28px;
+
+  padding:60px 40px;
+
+  text-align:center;
+}
+
+.success-leaf{
+  font-size:42px;
+
+  color:#84cc16;
+
+  margin-bottom:18px;
+}
+
+.gratitude-success h2{
+  color:#10d9a5;
+
+  margin-bottom:14px;
+}
+
+.gratitude-success p{
+  color:#94a3b8;
+
+  max-width:600px;
+
+  margin:0 auto 24px;
+}
+
+.write-again-btn{
+  padding:14px 28px;
+
+  border:none;
+
+  border-radius:999px;
+
+  background:rgba(255,255,255,.08);
+
+  color:white;
+
+  cursor:pointer;
+}
