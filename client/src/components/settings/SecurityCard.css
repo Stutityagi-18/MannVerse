@@ -70,7 +70,7 @@
   margin:10px 0 20px;
 }
 
-.logout-btn,
+
 .delete-btn{
   width:100%;
 
@@ -94,13 +94,6 @@
   margin-top:14px;
 }
 
-.logout-btn{
-  background:rgba(255,255,255,.05);
-
-  color:#d1d5db;
-
-  border:1px solid rgba(255,255,255,.08);
-}
 
 .delete-btn{
   background:rgba(127,29,29,.45);
@@ -108,4 +101,73 @@
   color:#fca5a5;
 
   border:1px solid rgba(239,68,68,.25);
+}
+.delete-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.7);
+  backdrop-filter: blur(6px);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 9999;
+}
+
+.delete-modal {
+  width: 420px;
+  background: #0f172a;
+  border: 1px solid rgba(255,255,255,0.08);
+  border-radius: 20px;
+  padding: 28px;
+  text-align: center;
+}
+
+.delete-modal h2 {
+  color: white;
+  margin-bottom: 12px;
+}
+
+.delete-modal p {
+  color: #94a3b8;
+  margin-bottom: 10px;
+}
+
+.delete-actions {
+  display: flex;
+  gap: 12px;
+  margin-top: 20px;
+}
+
+.cancel-delete {
+  flex: 1;
+  border: none;
+  padding: 12px;
+  border-radius: 12px;
+  cursor: pointer;
+}
+
+.confirm-delete {
+  flex: 1;
+  border: none;
+  padding: 12px;
+  border-radius: 12px;
+  cursor: pointer;
+  background: #dc2626;
+  color: white;
+  font-weight: 600;
+}
+.confirm-delete:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+.input-box svg {
+  cursor: pointer;
+}
+.update-password-btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+.confirm-delete:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
 }

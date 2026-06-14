@@ -14,18 +14,32 @@ function ProfileCard() {
   }, []);
 
   const fetchProfile = async () => {
-  try {
-    const res = await API.get("/auth/me");
+    try {
+      const res = await API.get("/auth/me");
 
-    console.log("PROFILE DATA:", res.data);
+      console.log("PROFILE DATA:", res.data);
 
-    setUser(res.data);
-    setName(res.data.name);
-  } catch (err) {
-    console.log("PROFILE ERROR:", err.response);
-    console.error(err);
-  }
-};
+      setUser(res.data);
+      setName(res.data.name);
+    } catch (err) {
+      console.log("PROFILE ERROR:", err.response);
+      console.error(err);
+    }
+  };
+  const handleProfileUpdate = async () => {
+    try {
+      const res = await API.put("/auth/profile", {
+        name,
+      });
+
+      setUser(res.data);
+      setIsEditing(false);
+
+      alert("Profile updated successfully!");
+    } catch (err) {
+      console.error(err);
+    }
+  };
   if (!user) {
     return <div className="settings-card">Loading...</div>;
   }
@@ -50,6 +64,7 @@ function ProfileCard() {
         <div className="input-box">
           <User size={18} />
           <input
+            className={isEditing ? "active-input" : "disabled-input"}
             value={name}
             disabled={!isEditing}
             onChange={(e) => setName(e.target.value)}
@@ -59,14 +74,22 @@ function ProfileCard() {
 
       <div className="form-group">
         <label>EMAIL ADDRESS</label>
-
         <div className="input-box">
           <Mail size={18} />
-          <input value={user.email} disabled />{" "}
+          <input className="disabled-input" value={user.email} disabled />{" "}
         </div>
       </div>
 
-      <button className="save-btn" onClick={() => setIsEditing(!isEditing)}>
+      <button
+        className="save-btn"
+        onClick={() => {
+          if (isEditing) {
+            handleProfileUpdate();
+          } else {
+            setIsEditing(true);
+          }
+        }}
+      >
         {isEditing ? "Save Changes" : "Edit Profile"}
       </button>
     </div>

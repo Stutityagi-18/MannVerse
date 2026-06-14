@@ -1,6 +1,8 @@
 import "./Sidebar.css";
 import { NavLink } from "react-router-dom";
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import API from "../../services/api";
+import { Sparkles } from "lucide-react";
 import {
   FiHome,
   FiBookOpen,
@@ -13,6 +15,19 @@ import {
 
 function Sidebar() {
   const [showLogoutModal, setShowLogoutModal] = useState(false);
+  const [user, setUser] = useState(null);
+  useEffect(() => {
+    fetchUser();
+  }, []);
+
+  const fetchUser = async () => {
+    try {
+      const res = await API.get("/auth/me");
+      setUser(res.data);
+    } catch (err) {
+      console.error(err);
+    }
+  };
   const handleLogout = () => {
     setShowLogoutModal(true);
 
@@ -23,8 +38,9 @@ function Sidebar() {
   };
   return (
     <aside className="sidebar">
-      <div className="logo">✨</div>
-
+<div className="logo">
+  <Sparkles size={30} />
+</div>
       <nav className="sidebar-nav">
         <NavLink to="/dashboard" className="nav-item">
           <FiHome />
@@ -56,12 +72,13 @@ function Sidebar() {
           <FiSettings />
           <span className="tooltip">Settings</span>
         </NavLink>
-
         <button className="nav-item" onClick={handleLogout}>
           <FiLogOut />
           <span className="tooltip">Logout</span>
         </button>
-        <div className="sidebar-avatar">S</div>
+        <div className="sidebar-avatar">
+          {user?.name?.charAt(0).toUpperCase() || "U"}
+        </div>{" "}
       </div>
       {showLogoutModal && (
         <div className="logout-overlay">
@@ -75,7 +92,8 @@ function Sidebar() {
             <h2>Logged Out Successfully</h2>
 
             <p className="logout-text">
-              Take care, Stuti. Your journal will be here whenever you need it.
+              Take care, {user?.name || "Friend"}. Your journal will be here
+              whenever you need it.{" "}
             </p>
 
             <div className="logout-progress">

@@ -1,10 +1,7 @@
 import "./Settings.css";
-
 import Sidebar from "../components/dashboard/Sidebar";
-
 import SettingsHeader from "../components/settings/SettingsHeader";
 import ProfileCard from "../components/settings/ProfileCard";
-import NotificationsCard from "../components/settings/NotificationsCard";
 import SecurityCard from "../components/settings/SecurityCard";
 
 function Settings() {
@@ -18,7 +15,7 @@ function Settings() {
 
           <ProfileCard />
 
-          <NotificationsCard />
+          {/* <NotificationsCard /> */}
 
           <SecurityCard />
         </div>

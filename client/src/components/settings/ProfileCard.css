@@ -171,3 +171,11 @@
     #a855f7
   );
 }
+.disabled-input {
+  color: #64748b !important;
+  cursor: not-allowed;
+}
+
+.active-input {
+  color: white !important;
+}

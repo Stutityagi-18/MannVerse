@@ -14,18 +14,15 @@ function Home() {
     <div className="dashboard-layout">
       <Sidebar />
       <main className="dashboard-main">
-
-  <div className="hero-row">
-    <WelcomeHero />
-    <StreakModal />
-  </div>
-
-  <div className="dashboard-content">
+        <div className="hero-row">
+          <WelcomeHero />
+          {/* <StreakModal /> */}
+        </div>
+        <div className="dashboard-content">
           <div className="left-section">
             <JournalCard />
             <StatsCards />
           </div>
-
           <div className="right-section">
             <AIReflectionCard />
             <TodayVibeCard />

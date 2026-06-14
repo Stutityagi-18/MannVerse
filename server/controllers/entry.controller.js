@@ -36,7 +36,6 @@ const getMyEntries = async (req, res) => {
     });
   }
 };
-
 module.exports = {
   createEntry,
   getMyEntries,

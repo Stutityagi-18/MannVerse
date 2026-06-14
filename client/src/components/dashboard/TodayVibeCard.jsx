@@ -1,10 +1,21 @@
 import "./TodayVibeCard.css";
 import { useEffect, useState } from "react";
 import API from "../../services/api";
-import { PiPlantFill } from "react-icons/pi";import { FiStar } from "react-icons/fi";function TodayVibeCard() {
-const [avgMood, setAvgMood] = useState(0);
-const [vibeText, setVibeText] = useState("");
-const [weeklyMood, setWeeklyMood] = useState([0, 0, 0, 0, 0, 0, 0]);
+import { PiPlantFill } from "react-icons/pi";
+import { FiStar } from "react-icons/fi";
+function TodayVibeCard() {
+  const [avgMood, setAvgMood] = useState(0);
+  const [vibeText, setVibeText] = useState("");
+  const [weeklyMood, setWeeklyMood] = useState([
+    { mood: 0 },
+    { mood: 0 },
+    { mood: 0 },
+    { mood: 0 },
+    { mood: 0 },
+    { mood: 0 },
+    { mood: 0 },
+  ]);
+  const [selectedDay, setSelectedDay] = useState(new Date().getDay());
   useEffect(() => {
     fetchVibeData();
   }, []);
@@ -27,13 +38,22 @@ const [weeklyMood, setWeeklyMood] = useState([0, 0, 0, 0, 0, 0, 0]);
         setVibeText("You're in a good headspace today. Keep nurturing it.");
       else if (avg >= 4) setVibeText("Take things one step at a time today 🌱");
       else setVibeText("Be kind to yourself today. Better days are coming 💜");
-
-      const moods = [0, 0, 0, 0, 0, 0, 0];
+      const moods = [
+        { mood: 0 },
+        { mood: 0 },
+        { mood: 0 },
+        { mood: 0 },
+        { mood: 0 },
+        { mood: 0 },
+        { mood: 0 },
+      ];
 
       entries.forEach((entry) => {
         const day = new Date(entry.createdAt).getDay();
 
-        moods[day] = Math.max(moods[day], entry.moodScore);
+        moods[day] = {
+          mood: Math.max(moods[day].mood, entry.moodScore),
+        };
       });
 
       setWeeklyMood(moods);
@@ -48,7 +68,9 @@ const [weeklyMood, setWeeklyMood] = useState([0, 0, 0, 0, 0, 0, 0]);
         TODAY'S VIBE
       </div>{" "}
       <div className="vibe-score">
-        <span className="score">{avgMood}</span>{" "}
+        <span className="score">
+          {weeklyMood[selectedDay]?.mood || avgMood}
+        </span>{" "}
         <span className="outof">/10</span>
       </div>
       <p className="vibe-text">{vibeText}</p>
@@ -56,12 +78,14 @@ const [weeklyMood, setWeeklyMood] = useState([0, 0, 0, 0, 0, 0, 0]);
         <PiPlantFill />
       </div>
       <div className="week-chart">
-        {weeklyMood.map((mood, index) => (
+        {weeklyMood.map((dayData, index) => (
           <div
             key={index}
-            className={`bar ${index === new Date().getDay() ? "active" : ""}`}
+            className={`bar ${index === selectedDay ? "active" : ""}`}
+            onClick={() => setSelectedDay(index)}
             style={{
-              height: `${Math.max(mood * 5, 8)}px`,
+              height: `${Math.max(dayData.mood * 5, 8)}px`,
+              cursor: "pointer",
             }}
           />
         ))}
@@ -70,7 +94,7 @@ const [weeklyMood, setWeeklyMood] = useState([0, 0, 0, 0, 0, 0, 0]);
         {["S", "M", "T", "W", "T", "F", "S"].map((day, index) => (
           <span
             key={index}
-            className={index === new Date().getDay() ? "active-day" : ""}
+            className={index === selectedDay ? "active-day" : ""}
           >
             {day}
           </span>

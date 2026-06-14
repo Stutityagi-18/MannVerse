@@ -42,8 +42,26 @@ function StatsCards() {
             ).toFixed(1)
           : 0;
 
-      // Temporary streak
-      const streak = totalEntries;
+      const uniqueDates = [
+        ...new Set(
+          entries.map((entry) => new Date(entry.createdAt).toDateString()),
+        ),
+      ];
+
+      let streak = 0;
+      const today = new Date();
+
+      for (let i = 0; i < uniqueDates.length; i++) {
+        const checkDate = new Date(today);
+
+        checkDate.setDate(today.getDate() - i);
+
+        if (uniqueDates.includes(checkDate.toDateString())) {
+          streak++;
+        } else {
+          break;
+        }
+      }
 
       setStats({
         entries: totalEntries,
@@ -78,7 +96,7 @@ function StatsCards() {
 
       <div className="stat-card">
         <div className="stat-icon green">
-            <BsStars />
+          <BsStars />
         </div>
         <h2 className="green">{stats.avgMood}</h2>
         <h3>Avg Mood</h3>
