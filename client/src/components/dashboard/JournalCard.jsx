@@ -1,27 +1,13 @@
 import "./JournalCard.css";
 import { useState } from "react";
 import API from "../../services/api";
+import { getDailyPrompt } from "../../utils/dailyPrompt";
 function JournalCard() {
   const [mood, setMood] = useState(5);
   const [content, setContent] = useState("");
   const [saving, setSaving] = useState(false);
-  const prompts = [
-    "What's one thing you're genuinely proud of yourself for today?",
-    "What made you smile today?",
-    "What challenged you the most today?",
-    "What emotion stayed with you throughout the day?",
-    "What's something you learned about yourself today?",
-    "What are you grateful for right now?",
-    "What's one small win you had today?",
-    "How did you take care of yourself today?",
-    "What's something you want to let go of today?",
-    "What gave you energy today?",
-    "What drained your energy today?",
-    "If today had a theme, what would it be?",
-    "What would you tell your younger self today?",
-    "What's one thing you wish more people understood about you?",
-    "What are you looking forward to tomorrow?",
-  ];
+  const todayPrompt = getDailyPrompt();
+  const [selectedEmotions, setSelectedEmotions] = useState([]);
   const moodColor =
     mood <= 2
       ? "#ef4444"
@@ -30,9 +16,6 @@ function JournalCard() {
         : mood <= 6
           ? "#3b82f6"
           : "#00d08a";
-  const [selectedEmotions, setSelectedEmotions] = useState([
-  ]);
-  const todayPrompt = prompts[new Date().getDate() % prompts.length];
   const toggleEmotion = (emotion) => {
     if (selectedEmotions.includes(emotion)) {
       setSelectedEmotions(selectedEmotions.filter((e) => e !== emotion));
@@ -45,7 +28,10 @@ function JournalCard() {
       alert("Please write something first.");
       return;
     }
-
+    if (selectedEmotions.length === 0) {
+      alert("Please select at least one emotion.");
+      return;
+    }
     try {
       setSaving(true);
 

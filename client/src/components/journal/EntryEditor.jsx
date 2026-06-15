@@ -1,11 +1,13 @@
 import "./EntryEditor.css";
 import { FiSave } from "react-icons/fi";
 import { useState } from "react";
+import { getDailyPrompt } from "../../utils/dailyPrompt";
 import API from "../../services/api";
 function EntryEditor() {
   const [title, setTitle] = useState("");
   const [body, setBody] = useState("");
   const [selectedEmotions, setSelectedEmotions] = useState([]);
+  const dailyPrompt = getDailyPrompt();
   const toggleEmotion = (emotion) => {
     if (selectedEmotions.includes(emotion)) {
       setSelectedEmotions(selectedEmotions.filter((e) => e !== emotion));
@@ -113,7 +115,7 @@ function EntryEditor() {
 
       <div className="reflection-box">
         <span className="reflection-icon">✦</span>
-        What emotion has been quietly asking for your attention lately?{" "}
+        {dailyPrompt}
       </div>
       <textarea
         className="journal-textarea"
