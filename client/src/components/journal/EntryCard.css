@@ -89,7 +89,7 @@
   font-size:12px;
 }
 
-.entry-dot{
+/* .entry-dot{
    position:absolute;
 
   top:22px;
@@ -105,7 +105,7 @@
   box-shadow:
     0 0 12px #19e3b0,
     0 0 24px rgba(25,227,176,.4);
-}
+} */
 .entry-card.active{
   background:rgba(91,33,182,.18);
 

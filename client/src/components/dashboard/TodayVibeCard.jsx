@@ -38,25 +38,33 @@ function TodayVibeCard() {
         setVibeText("You're in a good headspace today. Keep nurturing it.");
       else if (avg >= 4) setVibeText("Take things one step at a time today 🌱");
       else setVibeText("Be kind to yourself today. Better days are coming 💜");
-      const moods = [
-        { mood: 0 },
-        { mood: 0 },
-        { mood: 0 },
-        { mood: 0 },
-        { mood: 0 },
-        { mood: 0 },
-        { mood: 0 },
-      ];
+      const moods = Array(7)
+        .fill()
+        .map(() => ({
+          totalMood: 0,
+          count: 0,
+          mood: 0,
+        }));
 
       entries.forEach((entry) => {
         const day = new Date(entry.createdAt).getDay();
 
-        moods[day] = {
-          mood: Math.max(moods[day].mood, entry.moodScore),
-        };
+        moods[day].totalMood += entry.moodScore;
+        moods[day].count += 1;
+      });
+
+      moods.forEach((day) => {
+        if (day.count > 0) {
+          day.mood = Number((day.totalMood / day.count).toFixed(1));
+        }
       });
 
       setWeeklyMood(moods);
+      const today = new Date().getDay();
+
+      if (moods[today].mood > 0) {
+        setSelectedDay(today);
+      }
     } catch (err) {
       console.error(err);
     }
@@ -81,11 +89,21 @@ function TodayVibeCard() {
         {weeklyMood.map((dayData, index) => (
           <div
             key={index}
-            className={`bar ${index === selectedDay ? "active" : ""}`}
-            onClick={() => setSelectedDay(index)}
+            className={`bar ${
+              index === selectedDay
+                ? "active"
+                : dayData.mood > 0
+                  ? "filled"
+                  : ""
+            }`}
+            onClick={() => {
+              if (dayData.mood > 0) {
+                setSelectedDay(index);
+              }
+            }}
             style={{
               height: `${Math.max(dayData.mood * 5, 8)}px`,
-              cursor: "pointer",
+              cursor: dayData.mood > 0 ? "pointer" : "default",
             }}
           />
         ))}

@@ -12,7 +12,10 @@ const journalEntrySchema = new mongoose.Schema(
       type: String,
       required: true,
     },
-
+     title: {
+      type: String,
+      default: "",
+    },
     moodScore: {
       type: Number,
       min: 1,

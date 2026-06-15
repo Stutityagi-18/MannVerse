@@ -5,8 +5,13 @@ import { PieChart, Pie, Cell, ResponsiveContainer, Tooltip } from "recharts";
 function EmotionChart({ entries }) {
   const [activeIndex, setActiveIndex] = useState(null);
   const tagCounts = {};
+  const weekAgo = new Date();
+  weekAgo.setDate(weekAgo.getDate() - 6);
 
-  entries.forEach((entry) => {
+  const weeklyEntries = entries.filter(
+    (entry) => new Date(entry.createdAt) >= weekAgo,
+  );
+  weeklyEntries.forEach((entry) => {
     entry.tags?.forEach((tag) => {
       tagCounts[tag] = (tagCounts[tag] || 0) + 1;
     });
@@ -99,28 +104,17 @@ function EmotionChart({ entries }) {
 
       <div className="emotion-list">
         {data.map((item) => (
-          <div key={item.name} className="emotion-row">
-            <div className="emotion-name">
-              <span
-                className="dot"
-                style={{
-                  background: item.color,
-                }}
-              />
-
-              {item.name}
-            </div>
-
-            <div className="emotion-value">
-              <span
-                className="line"
-                style={{
-                  background: item.color,
-                }}
-              />
-              {item.value}
-            </div>
-          </div>
+        <div className="emotion-row">
+  <div className="emotion-name">
+    <span
+      className="dot"
+      style={{
+        background: item.color,
+      }}
+    />
+    {item.name}
+  </div>
+</div>
         ))}
       </div>
     </div>

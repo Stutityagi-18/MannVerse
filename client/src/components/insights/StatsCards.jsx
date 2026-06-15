@@ -1,55 +1,60 @@
 import "./StatsCards.css";
-import { Star, TrendingUp, Zap, Flame } from "lucide-react";
+import { Star, TrendingUp, Brain, Heart } from "lucide-react";
+import API from "../../services/api";
+import { useState, useEffect } from "react";
 function StatsCards({ entries }) {
-  const totalEntries = entries.length;
+  const [gratitudeCount, setGratitudeCount] = useState(0);
+  useEffect(() => {
+    fetchGratitudes();
+  }, []);
+  const fetchGratitudes = async () => {
+    try {
+      const res = await API.get("/gratitude");
 
+      const weekAgo = new Date();
+      weekAgo.setDate(weekAgo.getDate() - 6);
+
+      const weeklyGratitudes = res.data.filter(
+        (item) => new Date(item.createdAt) >= weekAgo,
+      );
+
+      setGratitudeCount(weeklyGratitudes.length);
+    } catch (err) {
+      console.error(err);
+    }
+  };
+  const weekAgo = new Date();
+  weekAgo.setDate(weekAgo.getDate() - 6);
+
+  const weeklyEntries = entries.filter(
+    (entry) => new Date(entry.createdAt) >= weekAgo,
+  );
+
+  const totalEntries = weeklyEntries.length;
   const avgMood =
     totalEntries > 0
       ? (
-          entries.reduce((sum, entry) => sum + entry.moodScore, 0) /
+          weeklyEntries.reduce((sum, entry) => sum + entry.moodScore, 0) /
           totalEntries
         ).toFixed(1)
       : 0;
+  const emotionCounts = {};
 
-  const bestEntry =
-    entries.length > 0
-      ? entries.reduce((best, current) =>
-          current.moodScore > best.moodScore ? current : best,
-        )
-      : null;
+  weeklyEntries.forEach((entry) => {
+    entry.tags?.forEach((tag) => {
+      emotionCounts[tag] = (emotionCounts[tag] || 0) + 1;
+    });
+  });
 
-  const bestDay = bestEntry
-    ? new Date(bestEntry.createdAt).toLocaleDateString("en-US", {
-        weekday: "long",
-      })
-    : "--";
-  const uniqueDates = [
-    ...new Set(
-      entries.map(
-        (entry) => new Date(entry.createdAt).toISOString().split("T")[0],
-      ),
-    ),
-  ].sort((a, b) => new Date(b) - new Date(a));
+  let topEmotion = "--";
+  let maxCount = 0;
 
-  let streak = 0;
-
-  for (let i = 0; i < uniqueDates.length; i++) {
-    if (i === 0) {
-      streak++;
-      continue;
+  Object.entries(emotionCounts).forEach(([emotion, count]) => {
+    if (count > maxCount) {
+      maxCount = count;
+      topEmotion = emotion;
     }
-
-    const current = new Date(uniqueDates[i - 1]);
-    const previous = new Date(uniqueDates[i]);
-
-    const diffDays = (current - previous) / (1000 * 60 * 60 * 24);
-
-    if (diffDays === 1) {
-      streak++;
-    } else {
-      break;
-    }
-  }
+  });
   return (
     <div className="stats-cards">
       <div className="insight-stat-card">
@@ -59,7 +64,7 @@ function StatsCards({ entries }) {
 
         <h2 className="yellow-text text-medium">{totalEntries}</h2>
         <h3>Entries</h3>
-        <p>Total journals</p>
+        <p>This week</p>
       </div>
 
       <div className="insight-stat-card">
@@ -68,25 +73,26 @@ function StatsCards({ entries }) {
         </div>
         <h2 className="green-text text-medium">{avgMood}</h2>
         <h3>Avg Mood</h3>
-        <p>Based on all entries</p>{" "}
+        <p>This week</p>{" "}
       </div>
-
       <div className="insight-stat-card">
         <div className="stat-icon purple">
-          <Zap size={20} />
+          <Brain size={20} />
         </div>
-        <h2 className="purple-text text-medium">{bestDay}</h2>
-        <h3>Best Day</h3>
-        <p>{bestEntry?.moodScore || 0}/10 mood score</p>{" "}
-      </div>
 
+        <h2 className="purple-text text-medium">{topEmotion}</h2>
+
+        <h3>Top Emotion</h3>
+
+        <p>Most felt this week</p>
+      </div>
       <div className="insight-stat-card">
         <div className="stat-icon blue">
-          <Flame size={20} />
+          <Heart size={20} />
         </div>
-        <h2 className="blue-text text-medium">{streak} days</h2>
-        <h3>Streak</h3>
-        <p>Current streak</p>{" "}
+        <h2 className="blue-text text-medium">{gratitudeCount}</h2>
+        <h3>Gratitude</h3>
+        <p>This week</p>{" "}
       </div>
     </div>
   );

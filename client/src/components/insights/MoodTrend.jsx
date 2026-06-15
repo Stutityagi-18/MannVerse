@@ -49,8 +49,8 @@ function MoodTrend({ entries }) {
     groupedData[date].totalMood += entry.moodScore;
     groupedData[date].count += 1;
   });
-
   const data = Object.keys(groupedData)
+    .sort((a, b) => new Date(a) - new Date(b))
     .map((date) => ({
       day: date,
       mood: Number(

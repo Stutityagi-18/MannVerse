@@ -2,15 +2,14 @@ const JournalEntry = require("../models/JournalEntry");
 
 const createEntry = async (req, res) => {
   try {
-    const { body, moodScore, tags } = req.body;
-
-    const entry = await JournalEntry.create({
+  const { title, body, moodScore, tags } = req.body;
+  const entry = await JournalEntry.create({
       userId: req.user.id,
+      title,
       body,
       moodScore,
       tags,
     });
-
     res.status(201).json({
       success: true,
       entry,

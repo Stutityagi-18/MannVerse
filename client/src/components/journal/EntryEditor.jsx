@@ -5,19 +5,56 @@ import API from "../../services/api";
 function EntryEditor() {
   const [title, setTitle] = useState("");
   const [body, setBody] = useState("");
+  const [selectedEmotions, setSelectedEmotions] = useState([]);
+  const toggleEmotion = (emotion) => {
+    if (selectedEmotions.includes(emotion)) {
+      setSelectedEmotions(selectedEmotions.filter((e) => e !== emotion));
+    } else {
+      setSelectedEmotions([...selectedEmotions, emotion]);
+    }
+  };
   const handleSave = async () => {
+    if (!body.trim()) {
+      alert("Please write something first.");
+      return;
+    }
+    if (selectedEmotions.length === 0) {
+      alert("Please select at least one emotion.");
+      return;
+    }
+    const emotionScores = {
+      Happy: 8,
+      Calm: 7,
+      Grateful: 9,
+      Hopeful: 8,
+      Excited: 10,
+      Tired: 4,
+      Anxious: 3,
+      Sad: 2,
+    };
+
+    const moodScore =
+      selectedEmotions.length > 0
+        ? Math.round(
+            selectedEmotions.reduce(
+              (sum, emotion) => sum + emotionScores[emotion],
+              0,
+            ) / selectedEmotions.length,
+          )
+        : 5;
     try {
       await API.post("/entries", {
         title,
         body,
-        moodScore: 5,
-        tags: [],
+        moodScore,
+        tags: selectedEmotions,
       });
 
       alert("Journal saved!");
 
       setTitle("");
       setBody("");
+      setSelectedEmotions([]);
     } catch (err) {
       console.error(err);
     }
@@ -27,7 +64,29 @@ function EntryEditor() {
       <div className="editor-toolbar">
         <div className="toolbar-right">
           <span>{body.trim() ? body.trim().split(/\s+/).length : 0} words</span>
-
+          <div className="editor-emotions">
+            {[
+              "Happy",
+              "Calm",
+              "Grateful",
+              "Sad",
+              "Anxious",
+              "Hopeful",
+              "Tired",
+              "Excited",
+            ].map((emotion) => (
+              <button
+                key={emotion}
+                type="button"
+                onClick={() => toggleEmotion(emotion)}
+                className={`emotion-chip ${
+                  selectedEmotions.includes(emotion) ? "selected" : ""
+                }`}
+              >
+                {emotion}
+              </button>
+            ))}
+          </div>
           <button className="journal-save-btn" onClick={handleSave}>
             <FiSave />
             Save
