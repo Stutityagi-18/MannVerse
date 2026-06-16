@@ -24,19 +24,7 @@
   background: rgba(139,92,246,.15);
   color: #a78bfa;
 }
-.confidence-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
 
-  margin-bottom: 12px;
-
-  color: #7f8aa3;
-
-  font-size: 13px;
-  font-weight: 600;
-  letter-spacing: 1px;
-}
 .emotion-tags span:nth-child(3) {
   background: rgba(16,185,129,.15);
   color: #34d399;
@@ -133,4 +121,33 @@
   font-weight: 700;
 
   -webkit-text-fill-color: white;
+}
+.report-btn{
+  margin-top:18px;
+
+  background:none;
+  border:none;
+
+  color:#8b5cf6;
+
+  font-size:14px;
+  font-weight:600;
+
+  cursor:pointer;
+
+  transition:.3s ease;
+}
+
+.report-btn:hover{
+  color:#c084fc;
+
+  transform:translateX(4px);
+}
+.emotion-box h4{
+  font-size:34px;
+  margin-top:10px;
+
+  color:#c084fc;
+
+  text-shadow:0 0 18px rgba(192,132,252,.25);
 }

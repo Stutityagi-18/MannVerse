@@ -1,3 +1,4 @@
+const aiRoutes = require("./routes/ai.routes");
 require("dotenv").config();
 
 const express = require("express");
@@ -10,9 +11,9 @@ const app = express();
 const entryRoutes = require("./routes/entry.routes");
 connectDB();
 const gratitudeRoutes = require("./routes/gratitude.routes");
-
 app.use(cors());
 app.use(express.json());
+app.use("/api/ai", aiRoutes);
 app.use("/api/entries", entryRoutes);
 
 app.use("/api/auth", authRoutes);

@@ -1,45 +1,65 @@
 import "./AIReflectionCard.css";
+import { useState } from "react";
+import API from "../../services/api";
+import AIReportModal from "./AIReportModal";
 
 function AIReflectionCard() {
+  const [openReport, setOpenReport] = useState(false);
+  const [report, setReport] = useState(null);
+  const [loading, setLoading] = useState(false);
+const fetchReport = async () => {
+  try {
+    setLoading(true);
+
+    const res = await API.get("/ai/report");
+
+    console.log("AI REPORT:", res.data);
+
+    setReport(res.data);
+
+    setOpenReport(true);
+  } catch (err) {
+    console.error(err);
+    alert("Failed to generate report");
+  } finally {
+    setLoading(false);
+  }
+};
   return (
     <div className="reflection-card">
       <div className="reflection-header">
         <div className="title-left">
           <h3>AI Reflection</h3>
         </div>
-
-        <span className="live-badge">Live</span>
       </div>
-
       <div className="emotion-tags">
-        <span>Calm</span>
-        <span>Reflective</span>
-        <span>Positive</span>
+        {report?.tags?.map((tag, index) => (
+          <span key={index}>{tag}</span>
+        ))}
       </div>
 
       <p>
-        Your writing carries a sense of quiet strength today. There's a
-        beautiful awareness of the present moment and a willingness to sit with
-        complexity.
+        {report?.reflection ||
+          "Click below to generate your AI reflection report."}
       </p>
 
       <div className="divider"></div>
 
-      <div className="confidence-section">
-        <div className="confidence-header">
-          <span>CONFIDENCE</span>
-          <span>87%</span>
-        </div>
-
-        <div className="confidence-bar">
-          <div className="confidence-fill"></div>
-        </div>
-      </div>
-
       <div className="emotion-box">
-        <span>Dominant Emotion</span>
-        <h4>Serenity</h4>
+        <span>DOMINANT EMOTION</span>
+
+        <h4>{report?.dominantEmotion || "Not Generated Yet"}</h4>
+
+        <button className="report-btn" onClick={fetchReport}>
+          {loading ? "Generating..." : "Read Full Report →"}
+        </button>
       </div>
+
+      <AIReportModal
+        open={openReport}
+        onClose={() => setOpenReport(false)}
+        report={report}
+      />
     </div>
   );
 }
