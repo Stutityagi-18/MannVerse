@@ -1,33 +1,55 @@
 # MannVerse
 
-An AI-powered Mental Health Journal built using the MERN Stack and Hugging Face.
-
-MannVerse provides a safe space for users to record their thoughts, track emotions, and receive personalized AI-generated reflections based on their journal entries.
-
----
+MannVerse is an AI-powered mental wellness journaling platform that helps users reflect on their thoughts, track emotions, and gain meaningful insights from their daily journal entries.
 
 ## Features
 
-*  Daily Journal Writing
-*  Guided Reflection Prompts
-*  Emotion & Mood Tracking
-*  AI-Generated Summary
-*  AI Reflection Analysis
-*  Personalized Wellness Suggestions
-*  Dominant Emotion Detection
-*  Dynamic Emotional Tags
-*  JWT Authentication
-*  Interactive Dashboard
+### Authentication
 
----
+* User Registration & Login
+* JWT-based Authentication
+* Protected Routes
+
+###  Daily Journal
+
+* Create and manage journal entries
+* Add titles and mood scores
+* Store entries securely in MongoDB
+
+###  Mood Tracking
+
+* Track daily mood on a scale of 1–10
+* Monitor emotional patterns over time
+
+###  Gratitude Journal
+
+* Maintain daily gratitude entries
+* Encourage positive reflection habits
+
+###  AI Reflection System
+
+* Generates AI-powered reflections from journal entries
+* Provides:
+
+  * Summary
+  * Reflection
+  * Personalized Suggestions
+  * Dominant Emotion
+  * Emotional Tags
+
+###  Smart AI Optimization
+
+* Daily report caching using MongoDB
+* Prevents unnecessary AI calls
+* Limits report generation requests to improve efficiency
 
 ##  Tech Stack
 
 ### Frontend
 
 * React.js
+* Vite
 * CSS
-* Axios
 
 ### Backend
 
@@ -35,31 +57,73 @@ MannVerse provides a safe space for users to record their thoughts, track emotio
 * Express.js
 * MongoDB
 * Mongoose
-* JWT Authentication
 
 ### AI Integration
 
 * Hugging Face Inference API
-* Qwen 2.5 Instruct
+* Qwen 2.5 Instruct Model
 
----
+### Authentication
 
-##  AI Reflection Workflow
+* JWT (JSON Web Tokens)
+* bcryptjs
 
-1. User writes journal entries.
-2. Entries are securely stored in MongoDB.
-3. User clicks **Read Full Report**.
-4. Backend sends journal data to Hugging Face.
-5. AI generates:
+##  Project Structure
 
-   * Summary
-   * Reflection
-   * Personalized Suggestions
-   * Dominant Emotion
-   * Emotional Tags
-6. Results are displayed in the AI Reflection Dashboard.
+```bash
+MannVerse/
+│
+├── client/
+│   ├── src/
+│   ├── components/
+│   ├── pages/
+│   └── services/
+│
+├── server/
+│   ├── controllers/
+│   ├── models/
+│   ├── routes/
+│   ├── middleware/
+│   └── services/
+│
+└── README.md
+```
 
----
----
+##  Installation
 
+### Clone Repository
 
+```bash
+git clone https://github.com/Stutityagi-18/MannVerse.git
+cd MannVerse
+```
+
+### Backend Setup
+
+```bash
+cd server
+npm install
+```
+
+Create a `.env` file:
+
+```env
+PORT=5000
+MONGO_URI=your_mongodb_uri
+JWT_SECRET=your_secret_key
+HF_TOKEN=your_huggingface_token
+```
+
+Run backend:
+
+```bash
+npm start
+```
+
+### Frontend Setup
+
+```bash
+cd client
+npm install
+npm run dev
+```
