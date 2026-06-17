@@ -60,16 +60,6 @@ MannVerse provides a safe space for users to record their thoughts, track emotio
 6. Results are displayed in the AI Reflection Dashboard.
 
 ---
-
-##  Future Enhancements
-
-* Advanced Emotion Classification
-* Weekly AI Reflection Reports
-* Mood Analytics & Trends
-* Streak Tracking
-* Guided Wellness Activities
-* Deployment & Mobile Responsiveness
-
 ---
 
 
