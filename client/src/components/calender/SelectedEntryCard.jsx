@@ -8,15 +8,21 @@ function SelectedEntryCard({ selectedEntry }) {
   }
   const mood = selectedEntry.moodScore;
   const moodEmoji =
-    mood <= 2
-      ? "😔"
-      : mood <= 4
-        ? "😟"
+  mood <= 2
+    ? "😭"
+    : mood <= 4
+      ? "😞"
+      : mood <= 5
+        ? "😐"
         : mood <= 6
           ? "🙂"
-          : mood <= 8
+          : mood <= 7
             ? "😊"
-            : "🤩";
+            : mood <= 8
+              ? "😁"
+              : mood <= 9
+                ? "🥳"
+                : "🤩";
   const moodLabel =
     mood <= 2
       ? "Very Low"
@@ -38,7 +44,6 @@ function SelectedEntryCard({ selectedEntry }) {
             day: "numeric",
           })}
         </span>
-        <span className="close-btn">×</span>
       </div>
 
       <div className="score-row">

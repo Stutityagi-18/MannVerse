@@ -1,5 +1,5 @@
 import "./AIReflectionCard.css";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import API from "../../services/api";
 import AIReportModal from "./AIReportModal";
 
@@ -7,25 +7,40 @@ function AIReflectionCard() {
   const [openReport, setOpenReport] = useState(false);
   const [report, setReport] = useState(null);
   const [loading, setLoading] = useState(false);
+  const [errorMessage, setErrorMessage] = useState("");
+  const loadReport = async () => {
+  try {
+    const res = await API.get("/ai/report");
+    setReport(res.data);
+  } catch (err) {
+    console.log("No existing report");
+  }
+};
   const fetchReport = async () => {
-    try {
-      setLoading(true);
+   try {
+  setLoading(true);
+  setErrorMessage("");
 
-      const res = await API.get("/ai/report");
+  const res = await API.get("/ai/report");
 
-      console.log("AI REPORT:", res.data);
+  console.log("AI REPORT:", res.data);
 
-      setReport(res.data);
+  setReport(res.data);
 
-      setOpenReport(true);
-    } catch (err) {
-      console.error(err);
+  setOpenReport(true);
+} catch (err) {
+  console.error(err);
 
-      alert(err.response?.data?.message || "Failed to generate report");
-    } finally {
+  setErrorMessage(
+    err.response?.data?.message || "Failed to generate report"
+  );
+} finally {
       setLoading(false);
     }
   };
+  useEffect(() => {
+  loadReport();
+}, []);
   return (
     <div className="reflection-card">
       <div className="reflection-header">
@@ -40,17 +55,20 @@ function AIReflectionCard() {
       </div>
 
       <p>
-        {report?.reflection ||
-          "Click below to generate your AI reflection report."}
-      </p>
+  {report?.reflection ||
+    errorMessage ||
+    "Click below to generate your AI reflection report."}
+</p>
 
       <div className="divider"></div>
 
       <div className="emotion-box">
         <span>DOMINANT EMOTION</span>
 
-        <h4>{report?.dominantEmotion || "Not Generated Yet"}</h4>
-
+<h4>
+  {report?.dominantEmotion ||
+    (errorMessage ? "Generation Limit Reached" : "Not Generated Yet")}
+</h4>
         <button className="report-btn" onClick={fetchReport}>
           {loading ? "Generating..." : "View Daily Report →"}{" "}
         </button>

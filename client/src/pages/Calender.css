@@ -71,16 +71,16 @@
 }
 .selected-entry{
   background:#091127;
-
   border:1px solid rgba(37,99,235,.25);
-
   border-radius:28px;
+
+  padding:28px;
+
+  position:relative;
 
   box-shadow:
     0 0 15px rgba(37,99,235,.18),
     0 0 35px rgba(37,99,235,.08);
-
-  position:relative;
 }
 .selected-entry:hover{
   box-shadow:
@@ -352,4 +352,31 @@
 .story-modal{
   max-height: 80vh;
   overflow-y: auto;
+}
+.close-btn{
+  width:44px;
+  height:44px;
+
+  display:flex;
+  align-items:center;
+  justify-content:center;
+
+  border-radius:50%;
+
+  background:#11182f;
+  border:1px solid rgba(255,255,255,.08);
+
+  color:white;
+  font-size:28px;
+  line-height:1;
+
+  cursor:pointer;
+
+  transition:.25s;
+}
+
+.close-btn:hover{
+  background:#1b2646;
+  border-color:#3b82f6;
+  box-shadow:0 0 18px rgba(59,130,246,.25);
 }

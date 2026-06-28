@@ -20,7 +20,7 @@ function EntryCard({ date, text, tags, active, onClick }) {
         ))}
       </div>
 
-      <div className="entry-dot"></div>
+      {/* <div className="entry-dot"></div> */}
     </div>
   );
 }

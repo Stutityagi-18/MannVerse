@@ -3,118 +3,161 @@ import { useEffect, useState } from "react";
 import API from "../../services/api";
 import { PiPlantFill } from "react-icons/pi";
 import { FiStar } from "react-icons/fi";
+import { FaChevronLeft, FaChevronRight } from "react-icons/fa";
+
 function TodayVibeCard() {
-  const [avgMood, setAvgMood] = useState(0);
+  const [weeklyMood, setWeeklyMood] = useState([]);
+  const [selectedDay, setSelectedDay] = useState(6);
+  const [weekOffset, setWeekOffset] = useState(0);
   const [vibeText, setVibeText] = useState("");
-  const [weeklyMood, setWeeklyMood] = useState([
-    { mood: 0 },
-    { mood: 0 },
-    { mood: 0 },
-    { mood: 0 },
-    { mood: 0 },
-    { mood: 0 },
-    { mood: 0 },
-  ]);
-  const [selectedDay, setSelectedDay] = useState(new Date().getDay());
+
   useEffect(() => {
     fetchVibeData();
-  }, []);
+  }, [weekOffset]);
+
   const fetchVibeData = async () => {
     try {
       const res = await API.get("/entries");
-
       const entries = res.data;
 
-      if (!entries.length) return;
+      if (!entries.length) {
+        setWeeklyMood([]);
+        return;
+      }
 
-      const avg =
-        entries.reduce((sum, e) => sum + e.moodScore, 0) / entries.length;
+      const today = new Date();
 
-      setAvgMood(avg.toFixed(1));
+      // move to previous week
+      today.setDate(today.getDate() - weekOffset * 7);
 
-      if (avg >= 8)
-        setVibeText("You're thriving today. Keep the momentum going ✨");
-      else if (avg >= 6)
-        setVibeText("You're in a good headspace today. Keep nurturing it.");
-      else if (avg >= 4) setVibeText("Take things one step at a time today 🌱");
-      else setVibeText("Be kind to yourself today. Better days are coming 💜");
-      const moods = Array(7)
-        .fill()
-        .map(() => ({
-          totalMood: 0,
+      const days = [];
+
+      for (let i = 6; i >= 0; i--) {
+        const d = new Date(today);
+        d.setDate(today.getDate() - i);
+
+        days.push({
+          date: d,
+          total: 0,
           count: 0,
           mood: 0,
-        }));
+        });
+      }
 
       entries.forEach((entry) => {
-        const day = new Date(entry.createdAt).getDay();
+        const entryDate = new Date(entry.createdAt);
 
-        moods[day].totalMood += entry.moodScore;
-        moods[day].count += 1;
+        days.forEach((day) => {
+          if (entryDate.toDateString() === day.date.toDateString()) {
+            day.total += entry.moodScore;
+            day.count++;
+          }
+        });
       });
 
-      moods.forEach((day) => {
-        if (day.count > 0) {
-          day.mood = Number((day.totalMood / day.count).toFixed(1));
+      days.forEach((d) => {
+        if (d.count > 0) {
+          d.mood = Number((d.total / d.count).toFixed(1));
         }
       });
 
-      setWeeklyMood(moods);
-      const today = new Date().getDay();
-
-      if (moods[today].mood > 0) {
-        setSelectedDay(today);
-      }
+      setWeeklyMood(days);
+      const todayIndex = weekOffset === 0 ? 6 : days.length - 1;
+      setSelectedDay(todayIndex);
     } catch (err) {
       console.error(err);
     }
   };
+  useEffect(() => {
+    const mood = weeklyMood[selectedDay]?.mood || 0;
+
+    if (mood >= 8) {
+      setVibeText("✨ You're thriving today. Keep the momentum going!");
+    } else if (mood >= 6) {
+      setVibeText("😊 You're in a good headspace today. Keep nurturing it.");
+    } else if (mood >= 4) {
+      setVibeText("🌱 Take things one step at a time today.");
+    } else if (mood > 0) {
+      setVibeText("💜 Be kind to yourself today. Better days are coming.");
+    } else {
+      setVibeText("📝 No journal entries found for this day.");
+    }
+  }, [weeklyMood, selectedDay]);
+  const startDate = weeklyMood[0]?.date;
+  const endDate = weeklyMood[6]?.date;
   return (
     <div className="today-vibe-card">
+      <div className="week-navigation">
+        <button
+          className="week-btn"
+          onClick={() => setWeekOffset((prev) => prev + 1)}
+        >
+          <FaChevronLeft />
+        </button>
+
+        <span>
+          {startDate && endDate
+            ? `${startDate.toLocaleDateString("en-IN", {
+                day: "numeric",
+                month: "short",
+              })} - ${endDate.toLocaleDateString("en-IN", {
+                day: "numeric",
+                month: "short",
+              })}`
+            : "Loading..."}
+        </span>
+
+        <button
+          className="week-btn"
+          disabled={weekOffset === 0}
+          onClick={() => setWeekOffset((prev) => prev - 1)}
+        >
+          <FaChevronRight />
+        </button>
+      </div>
+
       <div className="vibe-title">
         <FiStar className="vibe-star" />
-        TODAY'S VIBE
-      </div>{" "}
+        DAILY VIBE
+      </div>
+
       <div className="vibe-score">
-        <span className="score">
-          {weeklyMood[selectedDay]?.mood || avgMood}
-        </span>{" "}
+        <span className="score">{weeklyMood[selectedDay]?.mood || 0}</span>
+
         <span className="outof">/10</span>
       </div>
+
       <p className="vibe-text">{vibeText}</p>
+
       <div className="sprout">
         <PiPlantFill />
       </div>
+
       <div className="week-chart">
-        {weeklyMood.map((dayData, index) => (
+        {weeklyMood.map((day, index) => (
           <div
             key={index}
             className={`bar ${
-              index === selectedDay
-                ? "active"
-                : dayData.mood > 0
-                  ? "filled"
-                  : ""
+              index === selectedDay ? "active" : day.mood > 0 ? "filled" : ""
             }`}
             onClick={() => {
-              if (dayData.mood > 0) {
-                setSelectedDay(index);
-              }
+              if (day.mood > 0) setSelectedDay(index);
             }}
             style={{
-              height: `${Math.max(dayData.mood * 5, 8)}px`,
-              cursor: dayData.mood > 0 ? "pointer" : "default",
+              height: `${Math.max(day.mood * 5, 8)}px`,
+              cursor: day.mood > 0 ? "pointer" : "default",
             }}
           />
         ))}
       </div>
+
       <div className="week-labels">
-        {["S", "M", "T", "W", "T", "F", "S"].map((day, index) => (
+        {weeklyMood.map((day, index) => (
           <span
             key={index}
             className={index === selectedDay ? "active-day" : ""}
           >
-            {day}
+            {day.date.getDate()}
           </span>
         ))}
       </div>
